@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>react</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="browser.min.js"></script>
+    <script src="https://unpkg.com/react-router/umd/react-router.min.js"></script>
+    <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+    <style>
+        .contain{
+            width: 400px;
+            height: 200px;
+            background: #777;
+            color: #fff;
+        }
+        .lists{
+            width:400px ;
+            height: 45px;
+            line-height: 45px;
+            color: aqua;
+        }
+        .lists li{
+            display: inline-block;
+            list-style: none;
+            width: 33.3%;
+            color: #fff;
+        }
+        .active{
+            background-color:blue ;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    var root=document.querySelector('#root');
+    var {
+            Router,
+            Route,
+            Link,
+            IndexLink,
+            IndexRoute,
+            hashHistory,
+            }=ReactRouter;
+    var LB=React.createClass({
+        render:function(){
+            return(
+                   <div>
+                        <h3>望天门山</h3>
+                        <p>天门中断楚江开</p>
+                    </div>
+            )
+        }
+    });
+    var DF=React.createClass({
+        render:function(){
+            return(
+                    <div>
+                        <h3>春望</h3>
+                        <p>国破山河在</p>
+                    </div>
+            )
+        }
+    });
+    var LSY=React.createClass({
+        render:function(){
+            return(
+                    <div>
+                        <h3>锦瑟</h3>
+                        <p>锦瑟无端五十弦</p>
+                    </div>
+            )
+        }
+    });
+    var Home=React.createClass({
+        render:function(){
+            return(
+                  <div>
+                    <ul className='lists'>
+                        <li><IndexLink to='/'></IndexLink>李白</li>
+                        <li><Link to='/DF'></Link>杜甫</li>
+                        <li><Link to='/LSY'></Link>李商隐</li>
+                    </ul>
+                    <div className='contain'>
+                        this.props.children
+                    </div>
+                  </div>
+            )
+        }
+    })
+        ReactDOM.render(
+                <div style={{ width:'100%'}}>
+                    <Router history={hashHistory}>
+                        <Route  path='/'  component={Home}>
+                            <IndexRoute              component={LB}/>
+                            <Route  path='df'  component={DF}/>
+                            <Route  path='lsy'  component={LSY}/>
+                        <Route>
+                    </Router>
+                </div>
+                    ,root
+        );
+    </script>
+</body>
+</html>
