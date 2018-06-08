@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            border: none;
+            box-sizing: border-box;
+        }
+        .down-box{
+            margin: 100px;
+            position: relative;
+            width: 100px;
+            /*height: 150px;*/
+            border: 1px solid #ddd;
+            border-bottom: none;
+            font-size: 18px;
+            text-align: center;
+        }
+        .title{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            background: greenyellow;
+            color: #fff;
+            cursor: pointer;
+        }
+        .items{
+            width: 100px;
+            border: 1px solid #ddd;
+            border-top:none;
+            position: absolute;
+            top:30px;
+            left: -1px;
+        }
+        .items li{
+            cursor: pointer;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <down-menu :downdata="downdata"></down-menu>
+
+</div>
+<script>
+
+    Vue.component('down-menu',{
+        props:['downdata'],
+        data(){
+            return{
+                text:'项目1',
+                shows:false,
+            }
+        },
+        template:`<div class="down-box">
+        <div class="title" @click='show'>{{text}}</div>
+        <ul class="items"  v-show='shows'>
+            <li v-for="(item,index) in downdata" @click='choose(index)'>{{item.title}}</li>
+        </ul>
+    </div>`,
+        methods:{
+            show(){
+                 this.shows=!this.shows;
+            },
+            choose(index){
+                this.text=this.downdata[index].title;
+            this.shows=false;
+            }
+    }
+
+    })
+    var vm = new Vue({
+                el:'#app',
+                data:{
+                    la:1,
+                    downdata:[
+                        {title:'项目1',value:1},　
+                        {title:'项目2',value:2},
+                        {title:'项目3',value:3},
+                        {title:'项目4',value:4},
+                    ]
+                }
+            } )
+</script>
+
+</body>
+</html>

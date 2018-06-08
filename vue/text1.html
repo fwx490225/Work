@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            border: none;
+            box-sizing: border-box;
+            line-height: 2;
+        }
+        fieldset{
+            margin: 40px;
+            position: relative;
+            width:600px;
+            height: 240px;
+            border:1px solid #dddddd;
+            border-radius: 10px;
+            background: #fff;
+            padding: 0px 30px;
+
+        }
+        legend{
+            position: absolute;
+            top: -15px;
+            left: 40px;
+            background: #fff;
+            padding: 0 10px;
+            color: red;
+            font-weight: bolder;
+        }
+        input{
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .sex{
+            vertical-align: middle;
+        }
+        .sex label{
+            margin-right: 15px;
+        }
+        button{
+            margin-top: 20px;
+            padding: 1px 15px;
+            background-color: cornflowerblue;
+            color:#fff;
+            border-radius: 4px;
+        }
+        table{
+            width:600px;
+            border:1px solid #ddd;
+            border-collapse: collapse;
+            margin: 40px;
+            text-align: center;
+        }
+        .table-header th{
+            padding: 0 15px;
+            background-color: chocolate;
+            color: #fff;
+        }
+        .detel{
+            cursor: pointer;
+            border-radius: 5px;
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            width: 60px;
+            text-align: center;
+            background-color: cornflowerblue;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <fieldset>
+        <legend>学院学生录入系统</legend>
+        <br class="form-text">
+            <span>姓名：</span>
+            <input type="text"  placeholder="请输入姓名" v-model="name"></br>
+            <span>年龄：</span>
+            <input type="number"  v-model="age">
+            <div class="sex">
+                <span>性别：</span>
+                <label for="male">男</label><input type="radio" name="sex" v-model="sex" value="男" id="male"  >
+                <label for="ale">女</label> <input type="radio"  name="sex" v-model="sex" value="女" id="ale"  >
+            </div>
+            <span>手机：</span>
+            <input type="number"  placeholder="请输入手机号码" v-model="phone"></br>
+            <button @click="textSubmit">增加</button>
+    </fieldset>
+    <table>
+        <tr class="table-header">
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>手机</th>
+            <th >删除</th>
+        </tr>
+
+        <tr v-for="(item,index) in studentInfo" class="table-body">
+            <td>{{item.name}}</td>
+            <td>{{item.sex}}</td>
+            <td>{{item.age}}</td>
+            <td>{{item.phone}}</td>
+            <td ><span class="detel" @click="del(index)">删除</span></td>
+        </tr>
+    </table>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            name:'',
+            age:12,
+            sex:'',
+            phone:12344,
+            studentInfo:[
+                {name:'张三',age:19,sex:'女',phone:123456789},
+                {name:'李四',age:23,sex:'男',phone:177243123},
+                {name:'王五',age:15,sex:'女',phone:198906784},
+                {name:'赵六',age:22,sex:'男',phone:157923450},
+            ],
+        },
+        methods:{
+            textSubmit(){
+                let info={
+                    'name':this.name,
+                    'age':this.age,
+                    'sex':this.sex,
+                    'phone':this.phone,
+                    };
+                this.studentInfo.push(info);
+            },
+            del(index){
+                this.studentInfo.splice(index,1);
+            }
+        }
+    } )
+</script>
+
+</body>
+</html>
